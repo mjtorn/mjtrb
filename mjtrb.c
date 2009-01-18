@@ -19,11 +19,13 @@ struct mjtrb *rballoc(int count) {
 			first_ptr = rb_ptr = (struct mjtrb *) malloc(sizeof(struct mjtrb));
 			assert(rb_ptr != NULL);
 			first_ptr->idx = rb_ptr->idx = i;
+			printf("%2d: Allocing with %d ptr at 0x%x\n", i, rb_ptr->idx, rb_ptr);
 			rb_ptr->next = (struct mjtrb *) malloc(sizeof(struct mjtrb));
 			rb_ptr = rb_ptr->next;
 			continue;
 		}
 		rb_ptr->idx = i;
+		printf("%2d: Allocing with %d ptr at 0x%x\n", i, rb_ptr->idx, rb_ptr);
 		rb_ptr->next = (struct mjtrb *) malloc(sizeof(struct mjtrb));
 		rb_ptr = rb_ptr->next;
 	}
@@ -40,7 +42,7 @@ void rbfree(struct mjtrb *first) {
 	do {
 		prev = rb;
 		rb = rb->next;
-		printf("Freeing 0x%x\n", prev);
+		printf("%2d, Freeing 0x%x\n", prev->idx, prev);
 		free(prev);
 	} while (rb != first);
 	assert(((rb == first) == prev) == NULL);

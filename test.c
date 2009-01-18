@@ -2,7 +2,7 @@
 
 #include "mjtrb.h"
 
-#define COUNT 4
+#define COUNT 6
 
 int main(int argc, char *argv[]) {
 	struct mjtrb *rb, *rbptr;
@@ -17,7 +17,7 @@ int main(int argc, char *argv[]) {
 
 	rb = rbptr;
 	do {
-		printf("%2d: Dealing with ptr at 0x%x", i, rb);
+		printf("%2d: Dealing with %d ptr at 0x%x", i, rb->idx, rb);
 		printf(" next -> 0x%x\n", rb->next);
 		rb = rb->next;
 		i++;
