@@ -14,6 +14,7 @@ struct mjtrb *rballoc(int count) {
 		return NULL;
 	}
 
+	// -1 o_O
 	for (i=0; i<count-1; i++) {
 		if (!first_ptr) {
 			first_ptr = rb_ptr = (struct mjtrb *) malloc(sizeof(struct mjtrb));
@@ -26,8 +27,11 @@ struct mjtrb *rballoc(int count) {
 		}
 		rb_ptr->idx = i;
 		printf("%2d: Allocing with %d ptr at 0x%x\n", i, rb_ptr->idx, rb_ptr);
-		rb_ptr->next = (struct mjtrb *) malloc(sizeof(struct mjtrb));
-		rb_ptr = rb_ptr->next;
+		// Where the hell did this hack come from?
+		if (i < count-2) {
+			rb_ptr->next = (struct mjtrb *) malloc(sizeof(struct mjtrb));
+			rb_ptr = rb_ptr->next;
+		}
 	}
 	assert(rb_ptr->next == NULL);
 	rb_ptr->next = first_ptr;
@@ -42,7 +46,6 @@ void rbfree(struct mjtrb *first) {
 	do {
 		prev = rb;
 		rb = rb->next;
-		printf("%2d, Freeing 0x%x\n", prev->idx, prev);
 		free(prev);
 	} while (rb != first);
 	assert(((rb == first) == prev) == NULL);
