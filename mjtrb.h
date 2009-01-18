@@ -4,5 +4,6 @@ struct mjtrb {
 };
 
 struct mjtrb *rballoc(int);
+void rbfree(struct mjtrb *);
 
 

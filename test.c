@@ -25,6 +25,8 @@ int main(int argc, char *argv[]) {
 
 	printf("Came around to: 0x%x\n", rb);
 
+	rbfree(rbptr);
+
 	return 0;
 }
 

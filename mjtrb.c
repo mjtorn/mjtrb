@@ -33,3 +33,17 @@ struct mjtrb *rballoc(int count) {
 	return first_ptr;
 }
 
+void rbfree(struct mjtrb *first) {
+	struct mjtrb *rb, *prev = NULL;
+
+	rb = first;
+	do {
+		prev = rb;
+		rb = rb->next;
+		printf("Freeing 0x%x\n", prev);
+		free(prev);
+	} while (rb != first);
+	assert(((rb == first) == prev) == NULL);
+
+}
+
